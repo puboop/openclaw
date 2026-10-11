@@ -75,18 +75,23 @@ export function renderSessionLeadingState(
         ? t("sessionsView.subagentsWorking")
         : undefined,
   };
-  // Transient attention always outranks the persistent decorative icon.
-  const iconContent =
+  // Attention rides as a badge overlay instead of replacing the avatar, so
+  // the owner/channel artwork stays visible while attention is unresolved.
+  const attentionBadge =
     session.attention.kind !== "none" && !trailingState
       ? renderSessionAttentionIcon(session.attention)
-      : (icon ?? (session.icon ? renderPersistentSessionIcon(session.icon) : nothing));
+      : nothing;
+  const unreadBadge =
+    session.unread && !running && !trailingState ? renderSessionUnreadBadge() : nothing;
+  const badge = attentionBadge !== nothing ? attentionBadge : unreadBadge;
+  const iconContent = icon ?? (session.icon ? renderPersistentSessionIcon(session.icon) : nothing);
   if (iconContent !== nothing) {
     return {
       running,
       leadingIndicator: renderSessionGlyph({
         content: iconContent,
         ...runState,
-        badge: session.unread && !running && !trailingState ? renderSessionUnreadBadge() : nothing,
+        badge,
       }),
     };
   }
@@ -125,7 +130,7 @@ export function renderSessionLeadingState(
           .fallback=${ownerChip ?? nothing}
         ></openclaw-channel-avatar>`,
         ...runState,
-        badge: session.unread && !running && !trailingState ? renderSessionUnreadBadge() : nothing,
+        badge,
         circular: true,
       }),
     };
@@ -153,7 +158,7 @@ export function renderSessionLeadingState(
       leadingIndicator: renderSessionGlyph({
         content: ownerChip,
         ...runState,
-        badge: session.unread && !running && !trailingState ? renderSessionUnreadBadge() : nothing,
+        badge,
         circular: true,
         ring: stackedParticipants > 0 ? "pair" : "circle",
       }),

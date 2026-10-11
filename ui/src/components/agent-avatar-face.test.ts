@@ -10,24 +10,22 @@ function face(id: string) {
 }
 
 describe("default agent face", () => {
-  it("keeps an agent's artwork deterministic across render order", () => {
+  it("renders the same customized avatar for every agent", () => {
     const first = face("forge").outerHTML;
     face("scout");
+    expect(face("scout").outerHTML).toBe(first);
     expect(face("forge").outerHTML).toBe(first);
-    expect(face("scout").outerHTML).not.toBe(first);
   });
 
-  it("fills the circular avatar with self-contained vector artwork", () => {
+  it("fills the circular avatar with the bundled image artwork", () => {
     for (let index = 0; index < 32; index++) {
       const avatar = face(`agent-${index}`);
       expect(avatar.getAttribute("viewBox")).toBe("0 0 32 32");
-      const background = avatar.firstElementChild!;
-      expect(background.tagName).toBe("circle");
-      expect(background.getAttribute("cx")).toBe("16");
-      expect(background.getAttribute("cy")).toBe("16");
-      expect(background.getAttribute("r")).toBe("16");
-      expect(background.getAttribute("fill")).toMatch(/^hsl\(/);
-      expect(avatar.querySelector("filter, image, foreignObject, use")).toBeNull();
+      const image = avatar.querySelector("image");
+      expect(image).not.toBeNull();
+      expect(image!.getAttribute("preserveAspectRatio")).toBe("xMidYMid slice");
+      const href = image!.getAttribute("href") ?? image!.getAttribute("xlink:href") ?? "";
+      expect(href).toMatch(/default-agent-avatar\.png|data:image\/png;base64,/);
     }
   });
 });
