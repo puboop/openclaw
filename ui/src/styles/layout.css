@@ -4855,7 +4855,7 @@ wa-dropdown.sidebar-identity-menu::part(menu) {
 }
 
 .sidebar-session-attention__icon--error {
-  color: var(--danger);
+  color: #ffffff;
 }
 
 .sidebar-session-attention__icon svg {

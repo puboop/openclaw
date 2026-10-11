@@ -1,11 +1,9 @@
 import { html, svg } from "lit";
-import defaultAvatarPng from "../assets/default-agent-avatar.png";
 
 /**
- * Customized default agent artwork: every fallback surface renders the same
- * bundled image instead of the generated identicon face. The image rides in
- * an SVG shell so existing `.identity-avatar__agent-face` sizing keeps
- * applying and the slot stays vector-shaped for CSS consumers.
+ * Neutral placeholder artwork: every agent fallback surface renders the same
+ * plain white circle instead of the generated identicon face. The SVG shell
+ * keeps `.identity-avatar__agent-face` sizing intact for CSS consumers.
  */
 export function renderAgentAvatarFace(_agentId: string) {
   return html`<svg
@@ -15,13 +13,6 @@ export function renderAgentAvatarFace(_agentId: string) {
     height="100%"
     aria-hidden="true"
   >
-    ${svg`<image
-      href=${defaultAvatarPng}
-      x="0"
-      y="0"
-      width="32"
-      height="32"
-      preserveAspectRatio="xMidYMid slice"
-    />`}
+    ${svg`<circle cx="16" cy="16" r="16" fill="#ffffff" />`}
   </svg>`;
 }
