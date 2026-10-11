@@ -1520,7 +1520,7 @@ const enSettings = {
       title: "Chat",
       messageWidth: "Message width",
       messageWidthHint:
-        "Optional CSS width for the centered transcript, such as 960px, 82%, or min(1280px, 82%).",
+        "Optional CSS width for the transcript column, such as 960px, 82%, or min(1280px, 82%).",
       messageWidthInvalid:
         "Enter a CSS width such as 960px, 82%, min(1280px, 82%), or calc(100% - 2rem).",
       showTaskProgress: "Show task progress cards",

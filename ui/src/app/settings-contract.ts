@@ -66,7 +66,7 @@ export const UI_APPEARANCE_DEFAULTS = {
   themeMode: "system",
   textScale: 100,
   sidebarLiveActivity: true,
-  chatMessageMaxWidth: "48rem",
+  chatMessageMaxWidth: "100%",
   chatShowTaskProgress: true,
   chatCollapseTaskProgress: false,
   chatSendShortcut: "enter",
